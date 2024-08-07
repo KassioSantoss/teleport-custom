@@ -1,0 +1,4 @@
+name: teleport-custom
+version: '1.0'
+main: br.com.kassin.TeleportCustomPlugin
+api-version: '1.20'
