@@ -1,5 +1,7 @@
-package br.com.kassin;
+package br.com.kassin.commands;
 
+import br.com.kassin.route.Positions;
+import br.com.kassin.route.RouteManager;
 import br.com.kassin.utils.Message;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -49,16 +51,15 @@ public class CreateRouteCommand implements CommandExecutor, TabExecutor {
         if (args[0].equalsIgnoreCase("manager")) {
             switch (args[1].toLowerCase()) {
                 case "create":
-                    try {
-                        if (args[2].equalsIgnoreCase(""))
-
-
-                            routeManager.create("");
-
-                    } catch (Exception e) {
-
+                    if (args[2].isEmpty()) {
+                        Message.Chat.sendMessage("Voce precisa dar um nome para a rota.");
+                        Message.Chat.sendMessage("Exemplo: /position manager <create> RotaExemplo");
+                        return true;
                     }
 
+                    String name = args[2];
+
+                    routeManager.create(name, positions.getPos1(), positions.getPos2());
                     break;
 
                 case "init":
@@ -66,7 +67,7 @@ public class CreateRouteCommand implements CommandExecutor, TabExecutor {
                     break;
 
                 default:
-                    Message.Chat.sendMessage("Uso correto: /position manager <create> , <init>");
+                    Message.Chat.sendMessage("Uso correto: /position manager <create> <name> , <init>¶");
             }
         }
 
