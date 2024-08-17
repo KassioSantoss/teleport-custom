@@ -26,10 +26,12 @@ public final class RouteTask {
 
     private void travelDiagonally(final Location start,final Location end) {
         new BukkitRunnable() {
-            final Vector direction = end.toVector().subtract(start.toVector()).normalize();
+
             final double distance = start.distance(end);
-            double coveredDistance = 0;
+            final Vector direction = end.toVector().subtract(start.toVector()).normalize();
             final Location currentLocation = start.clone();
+
+            double coveredDistance = 0;
 
             @Override
             public void run() {
@@ -40,7 +42,7 @@ public final class RouteTask {
                 currentLocation.add(direction);
                 coveredDistance += direction.length();
 
-                currentLocation.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, currentLocation, 1);
+                currentLocation.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, currentLocation, 50);
             }
         }.runTaskTimer(TeleportPlugin.getInstance(), 0L, 5L);
     }

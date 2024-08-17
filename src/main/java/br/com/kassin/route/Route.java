@@ -6,7 +6,7 @@ import org.bukkit.Location;
 
 @Getter
 @Setter
-public class Route {
+public final class Route {
 
     private String name;
     private Location pos1;

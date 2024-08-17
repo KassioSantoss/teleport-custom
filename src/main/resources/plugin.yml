@@ -1,4 +1,6 @@
 name: teleport-custom
 version: '1.0'
-main: br.com.kassin.TeleportCustomPlugin
+main: br.com.kassin.TeleportPlugin
 api-version: '1.20'
+commands:
+  route:
