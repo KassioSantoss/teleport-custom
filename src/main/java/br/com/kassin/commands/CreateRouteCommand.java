@@ -1,7 +1,6 @@
 package br.com.kassin.commands;
 
 import br.com.kassin.route.RouteManager;
-import br.com.kassin.route.RouteTask;
 import br.com.kassin.utils.Message;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -11,7 +10,6 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +18,6 @@ import java.util.stream.Collectors;
 public final class CreateRouteCommand implements CommandExecutor, TabExecutor {
 
     private final RouteManager routeManager = RouteManager.getInstance();
-    private final RouteTask routeTask = RouteTask.getInstance();
 
     public CreateRouteCommand() {
     }
@@ -73,7 +70,7 @@ public final class CreateRouteCommand implements CommandExecutor, TabExecutor {
 
                     Location startLocation = routeManager.getRoute(routeName).getPos1();
                     Location endLocation = routeManager.getRoute(routeName).getPos2();
-                    routeTask.start(startLocation, endLocation);
+                    routeManager.getRouteTask().start(startLocation, endLocation);
                     break;
 
                 default:
@@ -108,7 +105,7 @@ public final class CreateRouteCommand implements CommandExecutor, TabExecutor {
                 .collect(Collectors.toList());
     }
 
-    public void incorrectCommand(final Player player) {
+    private void incorrectCommand(final Player player) {
         Message.Chat.sendMessage(player, "&a&lUso correto:");
         Message.Chat.sendMessage(player, "&a/route manager <create> <name>",
                 "&a/route manager <init> <name> ",

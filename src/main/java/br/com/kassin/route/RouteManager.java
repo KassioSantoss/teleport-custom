@@ -11,8 +11,9 @@ import java.util.Map;
 @Getter
 public final class RouteManager {
 
-    private static RouteManager routeManager;
+    private static RouteManager instance;
     private final Map<String, Route> routeMap;
+
     @Setter
     private Location pos1, pos2;
 
@@ -21,10 +22,10 @@ public final class RouteManager {
     }
 
     public static RouteManager getInstance() {
-        if (routeManager == null) {
-            routeManager = new RouteManager();
+        if (instance == null) {
+            instance = new RouteManager();
         }
-        return routeManager;
+        return instance;
     }
 
     public void create(final Player player, final String name, final Location pos1, final Location pos2) {
@@ -37,6 +38,10 @@ public final class RouteManager {
 
     public Route getRoute(String name) {
         return routeMap.getOrDefault(name,null);
+    }
+
+    public RouteTask getRouteTask() {
+        return RouteTask.getInstance();
     }
 
     private Map<String, Route> getRouteMap() {

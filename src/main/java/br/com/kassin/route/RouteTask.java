@@ -13,18 +13,18 @@ public final class RouteTask {
     private RouteTask() {
     }
 
-    public static RouteTask getInstance() {
+    static RouteTask getInstance() {
         if (routeTask == null) {
             routeTask = new RouteTask();
         }
         return routeTask;
     }
 
-    public void start(final Location start,final Location end) {
+    public void start(final Location start, final Location end) {
         travelDiagonally(start, end);
     }
 
-    private void travelDiagonally(final Location start,final Location end) {
+    private void travelDiagonally(final Location start, final Location end) {
         new BukkitRunnable() {
 
             final double distance = start.distance(end);
