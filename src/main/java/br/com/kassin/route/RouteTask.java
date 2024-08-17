@@ -6,7 +6,7 @@ import org.bukkit.Particle;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-public class RouteTask {
+public final class RouteTask {
 
     private static RouteTask routeTask;
 
