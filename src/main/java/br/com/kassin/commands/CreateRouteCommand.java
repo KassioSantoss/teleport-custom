@@ -1,7 +1,6 @@
 package br.com.kassin.commands;
 
-import br.com.kassin.route.Positions;
-import br.com.kassin.route.RouteManager;
+import br.com.kassin.RouteManager;
 import br.com.kassin.utils.Message;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,16 +9,13 @@ import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
 import java.util.List;
 
 public class CreateRouteCommand implements CommandExecutor, TabExecutor {
 
-    private final Positions positions;
     private final RouteManager routeManager;
 
     public CreateRouteCommand() {
-        positions = new Positions();
         routeManager = new RouteManager();
     }
 
@@ -28,23 +24,21 @@ public class CreateRouteCommand implements CommandExecutor, TabExecutor {
         if (!(sender instanceof Player player)) return true;
 
         if (args.length < 1) {
-            incorrectCommand();
+            incorrectCommand(player);
             return true;
         }
 
         if (args[0].equalsIgnoreCase("save")) {
             switch (args[1].toLowerCase()) {
-
                 case "pos1":
-                    positions.setPos1(player.getLocation());
+                    routeManager.setPos1(player.getLocation());
                     break;
-
                 case "pos2":
-                    positions.setPos2(player.getLocation());
+                    routeManager.setPos2(player.getLocation());
                     break;
 
                 default:
-                    Message.Chat.sendMessage("Uso correto: /position save <pos1> , <pos2>");
+                    Message.Chat.sendMessage(player,"Uso correto: /position save <pos1> , <pos2>");
             }
         }
 
@@ -52,14 +46,14 @@ public class CreateRouteCommand implements CommandExecutor, TabExecutor {
             switch (args[1].toLowerCase()) {
                 case "create":
                     if (args[2].isEmpty()) {
-                        Message.Chat.sendMessage("Voce precisa dar um nome para a rota.");
-                        Message.Chat.sendMessage("Exemplo: /position manager <create> RotaExemplo");
+                        Message.Chat.sendMessage(player,"Voce precisa dar um nome para a rota.");
+                        Message.Chat.sendMessage(player,"Exemplo: /position manager <create> RotaExemplo");
                         return true;
                     }
 
                     String name = args[2];
 
-                    routeManager.create(name, positions.getPos1(), positions.getPos2());
+                    routeManager.create(player,name, routeManager.getPos1(), routeManager.getPos2());
                     break;
 
                 case "init":
@@ -67,7 +61,7 @@ public class CreateRouteCommand implements CommandExecutor, TabExecutor {
                     break;
 
                 default:
-                    Message.Chat.sendMessage("Uso correto: /position manager <create> <name> , <init>¶");
+                    Message.Chat.sendMessage(player,"Uso correto: /position manager <create> <name> , <init>¶");
             }
         }
 
@@ -79,9 +73,9 @@ public class CreateRouteCommand implements CommandExecutor, TabExecutor {
         return null;
     }
 
-    private void incorrectCommand() {
-        Message.Chat.sendMessage("&a&lUso correto:");
-        Message.Chat.sendMessage("&a/position manager <create> <name>",
+    private void incorrectCommand(final Player player) {
+        Message.Chat.sendMessage(player,"&a&lUso correto:");
+        Message.Chat.sendMessage(player,"&a/position manager <create> <name>",
                 "&a/position manager <init> <name> ",
                 "&a/position save <name> <pos1> ",
                 "&a/position save <name> <pos2> "

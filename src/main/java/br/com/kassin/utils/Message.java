@@ -8,9 +8,9 @@ import org.bukkit.entity.Player;
 public class Message {
 
     public static class Chat {
-        public static void sendMessage(String... message) {
+        public static void sendMessage(Player player,String... message) {
             for (String string : message) {
-                ChatColor.translateAlternateColorCodes('&', string);
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', string));
             }
         }
     }
